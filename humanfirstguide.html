@@ -187,7 +187,7 @@
             margin-left: 320px;
             flex: 1;
             padding: 4rem;
-            max-width: 1200px;
+            max-width: 1400px;
         }
 
         .content-section {
@@ -231,7 +231,7 @@
             font-size: 1.125rem;
             line-height: 1.8;
             color: var(--stone-dark);
-            max-width: 800px;
+            max-width: 900px;
         }
 
         .section-content p {
@@ -596,6 +596,85 @@
             line-height: 1.6;
         }
 
+        
+        
+        /* Mobile Menu Toggle Button */
+        .mobile-menu-toggle {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1001;
+            background: var(--charcoal);
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .mobile-menu-toggle span {
+            width: 24px;
+            height: 2px;
+            background: var(--cream);
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+        
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+        
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+        
+        /* Mobile Title Bar */
+        .mobile-header {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--cream-dark);
+            border-bottom: 2px solid rgba(42, 42, 42, 0.1);
+            padding: 1rem 1.5rem;
+            z-index: 999;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .mobile-header-title {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--charcoal);
+        }
+        
+        .mobile-header-title .accent {
+            color: var(--accent-cream);
+        }
+        
+        @media (max-width: 1024px) {
+            .mobile-menu-toggle {
+                display: flex;
+            }
+            
+            .mobile-header {
+                display: flex;
+            }
+            
+            .main-content {
+                padding-top: 5rem;
+                margin-left: 0;
+                padding: 5rem 2rem 2rem 2rem;
+            }
+
         /* Responsive */
         @media (max-width: 1024px) {
             .sidebar {
@@ -661,13 +740,28 @@
     </style>
 </head>
 <body>
+    <!-- Mobile Header -->
+    <div class="mobile-header">
+        <div class="mobile-header-title">
+            hum<span class="accent">a</span>n f<span class="accent">i</span>rst <span style="font-size: 0.7rem; letter-spacing: 0.15em;">INSTITUTE</span>
+        </div>
+    </div>
+    
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    
+    
     <div class="app-container">
         <!-- Sidebar Navigation -->
         <aside class="sidebar">
             <div class="sidebar-header">
                 <!-- Back to Home Link -->
                 <div style="margin-bottom: 1.5rem;">
-                    <a href="index.html" style="display: inline-flex; align-items: center; gap: 0.5rem; color: #8b8680; text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s;">
+                    <a href="https://22north.co.uk/human-first" style="display: inline-flex; align-items: center; gap: 0.5rem; color: #8b8680; text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s;">
                         <span style="font-size: 1.2rem;">←</span>
                         <span>Back to Home</span>
                     </a>
@@ -1339,5 +1433,26 @@
             });
         });
     </script>
-</body>
+
+    <script>
+        function toggleMobileMenu() {
+            const sidebar = document.querySelector('.sidebar');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            sidebar.classList.toggle('mobile-open');
+            toggle.classList.toggle('active');
+        }
+        
+        // Close menu when clicking a nav link
+        document.querySelectorAll('.nav-link a').forEach(link => {
+            link.addEventListener('click', () => {
+                const sidebar = document.querySelector('.sidebar');
+                const toggle = document.querySelector('.mobile-menu-toggle');
+                if(sidebar.classList.contains('mobile-open')) {
+                    sidebar.classList.remove('mobile-open');
+                    toggle.classList.remove('active');
+                }
+            });
+        });
+    </script>
+    </body>
 </html>
